@@ -6,7 +6,7 @@ var	money = 'приветы',
 		period;
 // Тут я ввожу переменные
 
-console.log(income)
+console.log(income);
 alert(money);  
 /* Тут я вывожу одну переменную 
 Оставляя комментарий в 2 строки*/

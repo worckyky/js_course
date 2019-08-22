@@ -1,11 +1,12 @@
-var	 money = 1,
-		income, 
+var	money = 'приветы',
+		income = 'пакеты', 
 		addExpenses, 
 		deposit, 
 		mission, 
 		period;
 // Тут я ввожу переменные
 
-alert(приветы);  
+console.log(income)
+alert(money);  
 /* Тут я вывожу одну переменную 
 Оставляя комментарий в 2 строки*/

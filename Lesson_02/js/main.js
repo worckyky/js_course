@@ -6,7 +6,8 @@ let	money = 65000,
 		period = 6;
 
 
-
+console.log(typeof(money) + '\n' + typeof(income) + '\n' + typeof(deposit)); 
+console.log(income.length);
 console.log('Переод ' + period + ' Месяцев');
 console.log('Цель заработать - ' + mission + ' Рублей');
 

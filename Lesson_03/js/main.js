@@ -1,29 +1,22 @@
-let	money = Number(prompt('Ваш месячный доход?'));
-let income = 'Десигн, Банковский счет, Долги народа'; 
-let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'); 
-let deposit = prompt('Есть ли у вас депозит в банке?'); 
-let mission = 100000;
-let period = 6;
+let	money = Number(prompt('Ваш месячный доход?')),
+    income = 'Десигн, Банковский счет, Долги народа',
+    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'), 
+    deposit = confirm('Есть ли у вас депозит в банке?'), 
+    mission = 100000,
+    period = 6;
 
 console.log(money);
+
 console.log(addExpenses.split(', '));
 
-if (deposit == 'Да'){
-	let deposit = true;
-	console.log(deposit);
-} else if (deposit == 'Нет') {
-	let deposit = false;
-	console.log(deposit);
-} else {
-	alert('Введите значение: Да или Нет!');
-}
+console.log(deposit); 
 
 console.log(typeof(money) + '\n' + typeof(income) + '\n' + typeof(deposit));
 
-let Regress_One = prompt('Какие обязательные ежемесячные расходы у вас есть?');
-let Howmuch_One = Number(prompt('Во сколько это обойдется?'));
-let	Regress_Two = prompt('Какие обязательные ежемесячные расходы у вас есть?');
-let	Howmuch_Two = Number(prompt('Во сколько это обойдется?'));
+let Regress_One = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
+		Howmuch_One = Number(prompt('Во сколько это обойдется?')),
+		Regress_Two = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
+		Howmuch_Two = Number(prompt('Во сколько это обойдется?'));
 
 let budgetMonth = money - (Howmuch_One + Howmuch_Two);
 console.log(budgetMonth);

@@ -4,7 +4,10 @@ let	money = Number(prompt('Ваш месячный доход?')),
     deposit = confirm('Есть ли у вас депозит в банке?'), 
     mission = 100000,
     period = 6;
-
+let	Regress_One = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
+		Howmuch_One = Number(prompt('Во сколько это обойдется?')),
+		Regress_Two = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
+		Howmuch_Two = Number(prompt('Во сколько это обойдется?'));
 
 
 // Выводим тип данных переменных
@@ -18,15 +21,24 @@ showTypeOf(deposit);
 
 
 // Функция выводит сумму расходов
-let Sum = function getExpensesMonth(a, b, c) {
-	let Spliter = addExpenses.split(', ');
-			a = Number(Spliter[0]);
-			b = Number(Spliter[1]);
-			c = Number(Spliter[2]);
-			return a + b + c ;
-};
-console.log('Функция выводит сумму расходов - ' + Sum());
+// let Sum = function getExpensesMonth(a, b, c) {
+// 	let Spliter = addExpenses.split(', ');
+// 			a = Number(Spliter[0]);
+// 			b = Number(Spliter[1]);
+// 			c = Number(Spliter[2]);
+// 			return a + b + c ;
+// };
+// console.log('Функция выводит сумму расходов - ' + Sum());
 
+
+// Функция выводит сумму расходов
+let Sum = function getExpensesMonth() {
+	a = Howmuch_One;
+	b = Howmuch_Two;
+	return a + b;
+};
+
+console.log('Функция выводит сумму расходов - ' + Sum());
 
 
 // Функция выводит разницу между доходами и рассходами
@@ -49,10 +61,7 @@ console.log('Функция выводит колличество месяцев
 
 
 
-let Regress_One = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
-		Howmuch_One = Number(prompt('Во сколько это обойдется?')),
-		Regress_Two = prompt('Какие обязательные ежемесячные расходы у вас есть?'),
-		Howmuch_Two = Number(prompt('Во сколько это обойдется?'));
+
 
 
 
@@ -70,8 +79,8 @@ let getBudgetDay = function(a, b) {
 	return Math.floor(a / b);
 };
 
-console.log('Выводит чистый бюджет в месяц - ' + budgetMonth());
-console.log('Выводит бюджет в день - ' + getBudgetDay());
+// console.log('Выводит чистый бюджет в месяц - ' + budgetMonth());
+console.log('Функция выводит бюджет в день - ' + getBudgetDay());
 
 // let budgetMonth = money - (Howmuch_One + Howmuch_Two);
 // console.log(budgetMonth);

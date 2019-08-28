@@ -7,16 +7,15 @@ let money,
 
 let start = function () {
 
-	money = prompt('Ваш месячный доход?', 100000);
+	money = prompt('Ваш месячный доход?');
 	do {
-		money = prompt('Ваш месячный доход?', 100000);
+		money = prompt('Ваш месячный доход?');
 	}
 	while (isNaN(money) || money === '' || money === null);
-
+	return +money;
 };
 
-start();
-
+money = start();
 
 // Выводим тип данных переменных
 let showTypeOf = function (data) {
@@ -29,7 +28,7 @@ showTypeOf(deposit);
 
 
 let Regress_One,
-		Regress_Two;
+	Regress_Two;
 
 
 
@@ -50,17 +49,14 @@ let getExpensesMonth = function () {
 		}
 		// Главная часть цикла ( Суммирует данные полученные входе цикла )
 
-		let protection = function () {
-			question = +prompt('Во сколько это обойдется?');
-			console.log(question);
+		question = prompt('Во сколько это обойдется?');
+		console.log(question);
 
-			while (isNaN(question) || question === '' || question === null) {
-				question = +prompt('Во сколько это обойдется?');
-			}
+		while (isNaN(question) || question === '' || question === null) {
+			question = prompt('Во сколько это обойдется?');
 		}
-		protection();
 
-		sum += question;
+		sum += +question;
 		// Цикл валидация входных данных ( Только число )
 
 	};
@@ -70,46 +66,61 @@ let getExpensesMonth = function () {
 
 let expensesAmount = getExpensesMonth();
 
-console.log(typeof (expensesAmount));
 
 console.log('Функция выводит сумму расходов - ' + expensesAmount);
 
 
 
 // Функция выводит разницу между доходами и рассходами
-let getAccumulatedMonth = function (a, b) {
-	return a - b;
+let getAccumulatedMonth = function () {
+	return money - expensesAmount;
 };
-console.log('Функция выводит разницу между доходами и рассходами - ' + getAccumulatedMonth(money, expensesAmount));
+console.log('Функция выводит разницу между доходами и рассходами - ' + getAccumulatedMonth());
 
 
 
 // Функция выводит колличество месяцев за которое будет достигнута цель
-let targetMonth = function getTargetMonth(a, b) {
-	return Math.floor(a / b);
+let getTargetMonth = function () {
+	return Math.floor(mission / getAccumulatedMonth());
 };
-console.log('Функция выводит колличество месяцев (достижение цели) - ' + targetMonth(mission, getAccumulatedMonth()));
+
+let protection = function () {
+	while (getTargetMonth() < 0) {
+		alert("Цель не будет достигнута, значение отрицательное!");
+		break;
+	}
+	return window.stop();
+}
+
+protection();
+
+console.log('Функция выводит колличество месяцев (достижение цели) - ' + getTargetMonth());
 
 
 
 // Выводит бюджет в день
-let getBudgetDay = function (a, b) {
-	return Math.floor(a / b);
+let getBudgetDay = function () {
+	return (Math.floor(getAccumulatedMonth() / 30));
 };
 
-console.log('Функция выводит бюджет в день - ' + getBudgetDay(getAccumulatedMonth(), 30));
+
+console.log('Функция выводит бюджет в день - ' + getBudgetDay());
 
 
 // Определяем уровень дохода
-let getStatusIncome = function () {
-	if (getBudgetDay() >= 800) {
-		return ('Высокий уровень дохода');
-	} else if (getBudgetDay() >= 300 && getBudgetDay() < 800) {
-		return ('Средний уровень дохода');
-	} else if (getBudgetDay() > 0 && getBudgetDay() < 300) {
-		return ('Средний уровень дохода');
-	} else if (getBudgetDay() <= 0) {
-		return ('Что то пошло не так');
-	}
-};
-console.log('Определяем уровень дохода - ' + getStatusIncome());
+if (getBudgetDay() < 0) {
+	alert('Что-то пошло не так :(');
+} else {
+	let getStatusIncome = function () {
+		if (getBudgetDay() >= 800) {
+			return ('Высокий уровень дохода');
+		} else if (getBudgetDay() >= 300 && getBudgetDay() < 800) {
+			return ('Средний уровень дохода');
+		} else if (getBudgetDay() > 0 && getBudgetDay() < 300) {
+			return ('Средний уровень дохода');
+		} else if (getBudgetDay() <= 0) {
+			return ('Что то пошло не так');
+		}
+	};
+	console.log('Определяем уровень дохода - ' + getStatusIncome());
+}

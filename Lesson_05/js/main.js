@@ -1,17 +1,17 @@
 let money,
 	income = 'Десигн, Банковский счет, Долги народа',
-	addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-	deposit = confirm('Есть ли у вас депозит в банке?'),
+	addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', "ор"),
+	deposit = confirm('Есть ли у вас депозит в банке?', "ор"),
 	mission = 100000,
 	period = 6;
 
 let start = function () {
 
-		money = prompt('Ваш месячный доход?');
-		while (isNaN(money) || money === '' || money === null) {
-				money = prompt('Ваш месячный доход?');
-				console.log('money', money);
-		}
+	money = prompt('Ваш месячный доход?', 100000);
+	do {
+		money = prompt('Ваш месячный доход?', 100000);
+	}
+	while (isNaN(money) || money === '' || money === null);
 
 };
 
@@ -29,13 +29,15 @@ showTypeOf(deposit);
 
 
 let Regress_One,
-	Regress_Two;
+		Regress_Two;
 
 
 
 // Функция выводит сумму расходов
 let getExpensesMonth = function () {
+
 	let sum = 0;
+	let question;
 
 	for (let i = 0; i < 2; i++) {
 
@@ -46,14 +48,21 @@ let getExpensesMonth = function () {
 		if (i === 1) {
 			Regress_Two = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Собака');
 		}
-
 		// Главная часть цикла ( Суммирует данные полученные входе цикла )
-		sum += +prompt('Во сколько это обойдется?');
 
-		// Цикл валидация входных данных ( Только число )
-		while (isNaN(sum) || sum === '' || sum === null) {
-			sum += +prompt('Во сколько это обойдется?');
+		let protection = function () {
+			question = +prompt('Во сколько это обойдется?');
+			console.log(question);
+
+			while (isNaN(question) || question === '' || question === null) {
+				question = +prompt('Во сколько это обойдется?');
+			}
 		}
+		protection();
+
+		sum += question;
+		// Цикл валидация входных данных ( Только число )
+
 	};
 
 	return sum;
@@ -61,15 +70,17 @@ let getExpensesMonth = function () {
 
 let expensesAmount = getExpensesMonth();
 
+console.log(typeof (expensesAmount));
+
 console.log('Функция выводит сумму расходов - ' + expensesAmount);
 
 
 
 // Функция выводит разницу между доходами и рассходами
-let accumulatedMonth = function getAccumulatedMonth(a, b) {
+let getAccumulatedMonth = function (a, b) {
 	return a - b;
 };
-console.log('Функция выводит разницу между доходами и рассходами - ' + accumulatedMonth(money, expensesAmount));
+console.log('Функция выводит разницу между доходами и рассходами - ' + getAccumulatedMonth(money, expensesAmount));
 
 
 
@@ -77,7 +88,7 @@ console.log('Функция выводит разницу между доход�
 let targetMonth = function getTargetMonth(a, b) {
 	return Math.floor(a / b);
 };
-console.log('Функция выводит колличество месяцев (достижение цели) - ' + targetMonth(mission, accumulatedMonth()));
+console.log('Функция выводит колличество месяцев (достижение цели) - ' + targetMonth(mission, getAccumulatedMonth()));
 
 
 
@@ -86,7 +97,7 @@ let getBudgetDay = function (a, b) {
 	return Math.floor(a / b);
 };
 
-console.log('Функция выводит бюджет в день - ' + getBudgetDay(transit, 30));
+console.log('Функция выводит бюджет в день - ' + getBudgetDay(getAccumulatedMonth(), 30));
 
 
 // Определяем уровень дохода

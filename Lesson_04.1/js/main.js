@@ -1,11 +1,9 @@
 
 let randomName = function(data) {
-	console.log(data);
-	let number = 123;
-	if (typeof(data) == typeof(number)) {
-		return alert('Это не стока');
+	if (!isNaN(data)) {
+		return alert('Это не строка');
 	} else {
-		return alert('Видимо это строка')
+		return alert('Видимо это строка');
 	}
 };
 

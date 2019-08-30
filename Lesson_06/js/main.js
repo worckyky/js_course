@@ -18,10 +18,7 @@ money = start();
 /* Самое интересное */
 let appData = {
 	income: 'Десигн, Банковский счет, Долги народа',
-	expenses: {
-		answerOne: "Ответ 1",
-		answerTwo: "Ответ 2"
-	},
+	expenses: {},
 	addExpenses: [],
 	deposit: false,
 	mission: 1000000,
@@ -40,26 +37,22 @@ let appData = {
 		appData.deposit = confirm('Есть ли у вас депозит в банке?', "ор");
 		for (let i = 0; i < 2; i++) {
 			// 2 вопроса между стадиями цикла 
-			if (i === 0) {
-				appData.expenses.answerOne = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата');
-			}
-			if (i === 1) {
-				appData.expenses.answerTwo = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Собака');
-			}
+			let answer = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата');
 			let question;
 			do {
-				question = prompt('Во сколько это обойдется?', 5000);
+				question = prompt('Во сколько это обойдется?');
 			} while (isNaN(question) || question === '' || question === null);
 
 			console.log(question);
-			appData.expensesMonth += +question;
-		};
-		return appData.expensesMonth;
+			appData.expenses[answer] = question;
+		}; 
+		
 	},
 
-
 	getExpensesMonth: function () {
-
+		for (let key in appData.expenses) {
+			appData.expensesMonth += +appData.expenses[key];
+		}
 	},
 	//---------------------------------
 	getBudget: function () {
@@ -97,7 +90,9 @@ let appData = {
 		return appData.statusIncome;
 	}
 }
+
 appData.asking();
+appData.getExpensesMonth();
 appData.getBudget();
 appData.getStatusIncome();
 appData.getTargetMonth();
@@ -111,4 +106,11 @@ console.log('-----------------------------------------------------––––�
 for (let key in appData) {
 	console.log("Наша программа включает в себя данные: " + key + " - " + appData[key]);
 }
-
+console.log(appData.getExpensesMonth());
+console.log(appData);
+// if (i === 0) {
+// 	appData.expenses.answerOne = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата');
+// }
+// if (i === 1) {
+// 	appData.expenses.answerTwo = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Собака');
+// }

@@ -51,12 +51,11 @@ let appData = {
 		appData.addExpenses = String(appData.addExpenses.split(' , '));
 
 		let capitalize = function () {
-			appData.addExpenses = String(appData.addExpenses.split(' , '));
-			for (let j = 0; j < appData.addExpenses; j++) {
-				appData.addExpenses.split(/\s+/).map(word => word[0].toUpperCase() + word.substring(1)).join(' ');
-			}
+			appData.addExpenses = appData.addExpenses.replace(/(^|\s)\S/g, l => l.toUpperCase())
+			return appData.addExpenses
 		}
 		capitalize();
+	
 
 		appData.deposit = confirm('Есть ли у вас депозит в банке?', "ор");
 		for (let i = 0; i < 2; i++) {

@@ -51,7 +51,7 @@ let appData = {
 		appData.addExpenses = String(appData.addExpenses.split(' , '));
 
 		let capitalize = function () {
-			appData.addExpenses = appData.addExpenses.replace(/(^|\s)\S/g, l => l.toUpperCase())
+			appData.addExpenses = appData.addExpenses.replace(/(^|\s)\S/g, l => l.toUpperCase());
 			return appData.addExpenses
 		}
 		capitalize();

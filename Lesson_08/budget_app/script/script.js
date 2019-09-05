@@ -4,7 +4,7 @@ let
 	cancel = document.querySelector('#cancel'),
 	// Все инпуты 
 	allInputs = document.querySelectorAll('input'),
-		// Поле месячного дохода
+	// Поле месячного дохода
 	salaryAmount = document.querySelector('.salary-amount'),
 	// Кнопки добавления секций
 	incomePlus = document.getElementsByTagName('button')[0],
@@ -35,7 +35,6 @@ let
 	targetMonthValue = document.getElementsByClassName('target_month-value')[0];
 
 
-console.log(cancel);
 
 
 /* Самое интересное */
@@ -56,7 +55,7 @@ let appData = {
 	statusIncome: ' ',
 	// Активируем работу нашего приложения через кнопку
 	inputLocked: function () {
-		allInputs.forEach(function(item) {
+		allInputs.forEach(function (item) {
 			item.setAttribute("readonly", "readonly");
 		});
 	},
@@ -65,21 +64,10 @@ let appData = {
 		cancel.style.display = 'flex';
 		cancel.style.justifyContent = 'center';
 	},
-	startDisabled: function () {
-		start.disabled = true;
-	},
-	startAnabled: function () {
-		start.disabled = false;
-	},
+
 	start: function () {
 
 		appData.budget = +salaryAmount.value;
-
-		if (salaryAmount.value !== '' || salaryAmount.value !== null || isNaN(salaryAmount.value)) {
-			appData.startDisabled();
-		} else if (!isNaN(salaryAmount.value)) {
-			appData.startAnabled();
-		}
 
 		appData.getExpenses();
 		appData.getIncome();
@@ -90,9 +78,6 @@ let appData = {
 		appData.showResult();
 		appData.inputLocked();
 		appData.replaceButton();
-		
-
-
 
 	},
 	// Функция вывода результата
@@ -255,7 +240,17 @@ let appData = {
 
 };
 
-start.addEventListener('click', appData.start);
+
+// Активация калькулятора, если поле заполнено
+salaryAmount.addEventListener('input', function () {
+	if (salaryAmount.value === '') {
+		start.disabled = true;
+	} else {
+		start.disabled = false;
+		start.addEventListener('click', appData.start);
+	}
+});
+
 expensesPlus.addEventListener('click', appData.addExpensesBlock);
 incomePlus.addEventListener('click', appData.addIncomeBlock);
 

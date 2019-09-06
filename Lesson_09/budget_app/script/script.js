@@ -72,7 +72,7 @@ let appData = {
 				start.style.display = 'flex';
 				start.style.justifyContent = 'center';
 				cancel.style.display = 'none';
-				
+				start.disabled = true;
 			});
 		});
 	},
@@ -240,12 +240,14 @@ let appData = {
 
 };
 
+start.disabled = true;
 // Активация калькулятора, если поле заполнено
 salaryAmount.addEventListener('input', function () {
-	if (salaryAmount.value === '') {
-		start.disabled = true;
+	if (salaryAmount.value !== '') {
+		start.disabled = false;
 	}
 });
+
 
 start.addEventListener('click', appData.start.bind(appData));
 

@@ -64,10 +64,22 @@ let appData = {
 		cancel.style.display = 'flex';
 		cancel.style.justifyContent = 'center';
 	},
-
+	reset : function() {
+		cancel.addEventListener('click' , function(){
+			allInputs.forEach(function(item) {
+				item.removeAttribute("readonly", "readonly");
+				item.value = '';
+				start.style.display = 'flex';
+				start.style.justifyContent = 'center';
+				cancel.style.display = 'none';
+				
+			});
+		});
+	},
 	start: function () {
 
-		appData.budget = +salaryAmount.value;
+		this.budget = +salaryAmount.value;
+
 		this.getExpenses();
 		this.getIncome();
 		this.getExpensesMonth();
@@ -77,17 +89,18 @@ let appData = {
 		this.showResult();
 		this.inputLocked();
 		this.replaceButton();
+		this.reset();
 
 	},
 	// Функция вывода результата
 	showResult: function () {
-		budgetMonthValue.value = appData.budgetMonth;
-		budgetDayValue.value = Math.round(appData.budgetDay);
+		budgetMonthValue.value = this.budgetMonth;
+		budgetDayValue.value = Math.round(this.budgetDay);
 		expensesMonthValue.value = this.expensesMonth;
-		aditionalExpensesValue.value = appData.addExpenses.join(',');
-		aditionalIncomeValue.value = appData.addIncome.join(',');
-		targetMonthValue.value = Math.ceil(appData.getTargetMonth());
-		incomePeriodValue.value = appData.calcSavedMoney();
+		aditionalExpensesValue.value = this.addExpenses.join(',');
+		aditionalIncomeValue.value = this.addIncome.join(',');
+		targetMonthValue.value = Math.ceil(this.getTargetMonth());
+		incomePeriodValue.value = this.calcSavedMoney();
 		periodSelect.addEventListener('change', function () {
 			incomePeriodValue.value = appData.calcSavedMoney();
 		});
@@ -104,15 +117,16 @@ let appData = {
 	},
 	// Функция для полей "Дополнительны заработок"
 	getIncome: function () {
+		let replace = this;
 		incomeItems.forEach(function (item) {
 			let itemIncome = item.querySelector('.income-title').value;
 			let cashIncome = item.querySelector('.income-amount').value;
 			if (itemIncome !== '' && cashIncome !== '') {
-				appData.income[itemIncome] = cashIncome;
+				replace.income[itemIncome] = cashIncome;
 			}
 		});
-		for (let key in appData.income) {
-			appData.incomeMonth += +appData.income[key]
+		for (let key in this.income) {
+			this.incomeMonth += +this.income[key]
 		}
 	},
 	// Добавляем новые поля для обязательного расхода
@@ -125,31 +139,33 @@ let appData = {
 		}
 	},
 	getExpenses: function () {
-		let change = this;
+		let replace = this;
 		expensesItems.forEach(function (item) {
 			let itemExpenses = item.querySelector('.expenses-title').value,
 				cashExpenses = item.querySelector('.expenses-amount').value;
 			if (itemExpenses !== '' && cashExpenses !== '') {
-				change.expenses[itemExpenses] = cashExpenses;
+				replace.expenses[itemExpenses] = cashExpenses;
 			}
 		});
 	},
 	// Возможные расходы строка - перечесление через запятую
 	getAddExpenses: function () {
 		let addExpenses = adidtionalExpensesItem.value.split(', ');
+		let replace = this;
 		addExpenses.forEach(function (item) {
 			item = item.trim();
 			if (item !== '') {
-				appData.addExpenses.push(item);
+				replace.addExpenses.push(item);
 			}
 		});
 	},
 	// Поля дополнительного дохода
 	getAddIncome: function () {
+		let replace = this;
 		aditionalIncomeItem.forEach(function (item) {
 			let itemValue = item.value.trim();
 			if (itemValue !== '') {
-				appData.addIncome.push(itemValue);
+				replace.addIncome.push(itemValue);
 			}
 		});
 	},
@@ -164,38 +180,22 @@ let appData = {
 
 		appData.deposit = confirm('Есть ли у вас депозит в банке?', "ор");
 
-		// for (let i = 0; i < 2; i++) {
-
-		// 	// 2 вопроса между стадиями цикла 
-		// 	let answer;
-		// 	do {
-		// 		answer = prompt('Какие обязательные ежемесячные расходы у вас есть?');
-		// 	} while (!isNaN(answer) || answer === '' || answer === null);
-
-		// 	let question;
-		// 	do {
-		// 		question = prompt('Во сколько это обойдется?');
-		// 	} while (isNaN(question) || question === '' || question === null);
-
-		// 	console.log(question);
-		// 	appData.expenses[answer] = question;
-		// };
 
 	},
 
 	getExpensesMonth: function () {
-		for (let key in appData.expenses) {
-			appData.expensesMonth += +appData.expenses[key];
+		for (let key in this.expenses) {
+			this.expensesMonth += +this.expenses[key];
 		}
 	},
 	//---------------------------------
 	getBudget: function () {
-		appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
-		appData.budgetDay = (Math.floor(appData.budgetMonth / 30));
+		this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+		this.budgetDay = (Math.floor(this.budgetMonth / 30));
 	},
 	//---------------------------------
 	getTargetMonth: function () {
-		return targetAmount.value / appData.budgetMonth;
+		return targetAmount.value / this.budgetMonth;
 	},
 	//---------------------------------
 	protection: function () {
@@ -240,48 +240,22 @@ let appData = {
 
 };
 
-
 // Активация калькулятора, если поле заполнено
 salaryAmount.addEventListener('input', function () {
 	if (salaryAmount.value === '') {
 		start.disabled = true;
-	} else {
-		start.disabled = false;
-		start.addEventListener('click', appData.start.bind(appData));
 	}
 });
 
-expensesPlus.addEventListener('click', appData.addExpensesBlock);
-incomePlus.addEventListener('click', appData.addIncomeBlock);
+start.addEventListener('click', appData.start.bind(appData));
+
+
+
+
+expensesPlus.addEventListener('click', appData.addExpensesBlock.bind(appData));
+incomePlus.addEventListener('click', appData.addIncomeBlock.bind(appData));
 
 // Перемещение ползунка и изменение числового значения
 periodSelect.addEventListener('change', function () {
 	titlePeriodAmount.innerHTML = periodSelect.value;
 });
-
-
-
-
-
-// appData.getStatusIncome();
-// appData.getTargetMonth();
-// appData.getInfoDeposit();
-// appData.calcSavedMoney();
-
-
-
-
-
-// console.log('-----------------------------------------------------––––––––––––––––––––––––––––––––––––––––––––');
-
-// for (let key in appData) {
-// 	console.log("Наша программа включает в себя данные: " + key + " - " + appData[key]);
-// }
-
-// console.log(appData);
-// if (i === 0) {
-// 	appData.expenses.answerOne = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Квартплата');
-// }
-// if (i === 1) {
-// 	appData.expenses.answerTwo = prompt('Какие обязательные ежемесячные расходы у вас есть?', 'Собака');
-// }

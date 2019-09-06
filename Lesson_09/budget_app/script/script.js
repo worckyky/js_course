@@ -243,7 +243,7 @@ let appData = {
 start.disabled = true;
 // Активация калькулятора, если поле заполнено
 salaryAmount.addEventListener('input', function () {
-	if (salaryAmount.value !== '') {
+	if (salaryAmount.value !== '' && !isNaN(salaryAmount.value)) {
 		start.disabled = false;
 	}
 });

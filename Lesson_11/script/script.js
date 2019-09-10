@@ -14,7 +14,6 @@ const
 	// Поля возможного дохода
 	aditionalIncomeItem = document.querySelectorAll('.additional_income-item'),
 	// Поля обязательного дохода
-	fieldItemExpensesText = document.querySelector('.expenses-title'),
 	// Возможные расходы
 	adidtionalExpensesItem = document.querySelector('.additional_expenses-item'),
 	// Цель заработать деньжат
@@ -35,9 +34,11 @@ const
 	depositBank = document.querySelector('.deposit-bank'),
 	depositAmount = document.querySelector('.deposit-amount'),
 	depositPersent = document.querySelector('.deposit-percent');
-
 let incomeItems = document.querySelectorAll('.income-items'),
-	expensesItems = document.querySelectorAll('.expenses-items');
+		expensesItems = document.querySelectorAll('.expenses-items'),
+		itemExpenses = document.querySelector('.expenses-title'),
+		cashExpenses = document.querySelector('.expenses-amount'),
+		cashIncome = document.querySelector('.income-amount');
 
 
 const AppData = function () {
@@ -98,7 +99,7 @@ AppData.prototype.showResult = function () {
 	});
 };
 
-AppData.prototype.makeBlock = function (items, btn, param) {
+AppData.prototype.makeBlock = (items, btn, param) => {
 	cloneItem = items[0].cloneNode(true);
 	items[0].parentNode.insertBefore(cloneItem, btn);
 	items = document.querySelectorAll(`${param}`);
@@ -113,24 +114,6 @@ AppData.prototype.addIncomeBlock = function () {
 AppData.prototype.addExpensesBlock = function () {
 	this.makeBlock(expensesItems, expensesPlus, '.expenses-items');
 };
-
-// Моя новая попытка
-// Моя новая попытка
-// Моя новая попытка
-// AppData.prototype.getMoney = function (items, itemUse, cashUse, itemUseParam, cashUseParam, nameParam) {
-// 	let _this = this;
-// 	nameParam
-// 	items.forEach(function (item) {
-// 		itemUse = item.querySelector(`${itemUseParam}`).value;
-// 		cashUse = item.querySelector(`${cashUseParam}`).value;
-// 		if (itemUse !== '' && cashUse !== '') {
-// 			_this.nameParam[itemUse] = cashUse;
-// 		}
-// 	});
-// };
-// AppData.prototype.getIncome = function () { 
-// 	this.getMoney(incomeItems, itemIncome, cashIncome, '.income-title', '.income-amount')
-// }
 
 // Функция для полей "Дополнительны заработок"
 AppData.prototype.getIncome = function () {
@@ -151,7 +134,7 @@ AppData.prototype.getExpenses = function () {
 	let _this = this;
 	expensesItems.forEach(function (item) {
 		let itemExpenses = item.querySelector('.expenses-title').value;
-		let	cashExpenses = item.querySelector('.expenses-amount').value;
+		let cashExpenses = item.querySelector('.expenses-amount').value;
 		if (itemExpenses !== '' && cashExpenses !== '') {
 			_this.expenses[itemExpenses] = cashExpenses;
 		}
@@ -182,7 +165,7 @@ AppData.prototype.getAddIncome = function () {
 };
 
 AppData.prototype.getExpensesMonth = function () {
-
+	
 	for (let key in this.expenses) {
 		this.expensesMonth += +this.expenses[key];
 	}
@@ -238,15 +221,14 @@ AppData.prototype.calcSavedMoney = function () {
 
 
 
-AppData.prototype.startDisabled = function () {
-};
+AppData.prototype.startDisabled = function () {};
 
 AppData.prototype.eventListeners = function () {
 
 	start.addEventListener('click', this.start.bind(appData));
 	expensesPlus.addEventListener('click', this.addExpensesBlock.bind(appData));
 	incomePlus.addEventListener('click', this.addIncomeBlock.bind(appData));
-	
+
 	start.disabled = true;
 	// Активация калькулятора, если поле заполнено
 	salaryAmount.addEventListener('input', function () {
@@ -286,16 +268,17 @@ AppData.prototype.eventListeners = function () {
 
 AppData.prototype.reset = function () {
 	cancel.addEventListener('click', function () {
+		incomeItems = document.querySelectorAll('.income-items');
+		expensesItems = document.querySelectorAll('.expenses-items');
+
 		allInputs.forEach(function (item) {
 			item.removeAttribute("readonly", "readonly");
 			item.value = '';
 			expensesItems.forEach(function (item) {
-				console.log(item);
 				item.querySelector('.expenses-amount').value = '';
 				item.querySelector('.expenses-title').value = '';
 			});
 			incomeItems.forEach(function (item) {
-				console.log(item);
 				item.querySelector('.income-amount').value = '';
 				item.querySelector('.income-title').value = '';
 			});

@@ -164,7 +164,7 @@ AppData.prototype.getAddIncome = function () {
 };
 
 AppData.prototype.getExpensesMonth = function () {
-	
+
 	for (let key in this.expenses) {
 		this.expensesMonth += +this.expenses[key];
 	}
@@ -248,7 +248,14 @@ AppData.prototype.reset = function () {
 	});
 };
 
-AppData.prototype.startDisabled = function () {
+// AppData.prototype.startDisabled = function () {
+
+// };
+
+AppData.prototype.eventListeners = function () {
+	start.addEventListener('click', this.start.bind(appData));
+	expensesPlus.addEventListener('click', this.addExpensesBlock.bind(appData));
+	incomePlus.addEventListener('click', this.addIncomeBlock.bind(appData));
 	start.disabled = true;
 	// Активация калькулятора, если поле заполнено
 	salaryAmount.addEventListener('input', function () {
@@ -256,13 +263,6 @@ AppData.prototype.startDisabled = function () {
 			start.disabled = false;
 		}
 	});
-};
-
-AppData.prototype.eventListeners = function () {
-	start.addEventListener('click', this.start.bind(appData));
-	expensesPlus.addEventListener('click', this.addExpensesBlock.bind(appData));
-	incomePlus.addEventListener('click', this.addIncomeBlock.bind(appData));
-
 	// Перемещение ползунка и изменение числового значения
 	periodSelect.addEventListener('change', function () {
 		titlePeriodAmount.innerHTML = periodSelect.value;

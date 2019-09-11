@@ -34,7 +34,7 @@ const
 	depositBank = document.querySelector('.deposit-bank'),
 	depositAmount = document.querySelector('.deposit-amount'),
 	depositPersent = document.querySelector('.deposit-percent');
-	
+
 let incomeItems = document.querySelectorAll('.income-items'),
 	expensesItems = document.querySelectorAll('.expenses-items'),
 	itemExpenses = document.querySelector('.expenses-title'),
@@ -127,7 +127,7 @@ class AppData {
 		}
 	}
 
-	
+
 	getExpenses() {
 		let _this = this;
 		expensesItems = document.querySelectorAll('.expenses-items');
@@ -249,18 +249,42 @@ class AppData {
 		cancel.addEventListener('click', function () {
 			incomeItems = document.querySelectorAll('.income-items');
 			expensesItems = document.querySelectorAll('.expenses-items');
-
 			allInputs.forEach(function (item) {
+
 				item.removeAttribute("readonly", "readonly");
 				item.value = '';
 				expensesItems.forEach(function (item) {
 					item.querySelector('.expenses-amount').value = '';
 					item.querySelector('.expenses-title').value = '';
 				});
+
 				incomeItems.forEach(function (item) {
 					item.querySelector('.income-amount').value = '';
 					item.querySelector('.income-title').value = '';
 				});
+
+				for (let i = 1; i < expensesItems.length; i++) {
+					expensesItems[i].parentNode.removeChild(expensesItems[i]);
+					expensesPlus.style.display = 'block';
+				}
+				for (let i = 1; i < incomeItems.length; i++) {
+					incomeItems[i].parentNode.removeChild(incomeItems[i]);
+					incomePlus.style.display = 'block';
+				}
+				appData.income = {},
+					appData.addIncome = [],
+					appData.incomeMonth = 0,
+					appData.expenses = {},
+					appData.addExpenses = [],
+					appData.deposit = false,
+					appData.percentDeposit = 0,
+					appData.moneyDeposit = 0,
+					appData.mission = 1000000,
+					appData.budget = 0,
+					appData.budgetDay = 0,
+					appData.budgetMonth = 0,
+					appData.expensesMonth = 0,
+					appData.statusIncome = '',
 				start.style.display = 'flex';
 				start.style.justifyContent = 'center';
 				cancel.style.display = 'none';

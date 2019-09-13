@@ -47,10 +47,12 @@ window.addEventListener('DOMContentLoaded', function () {
 		updateClock()
 
 		function fixClock() {
+			let timerContainer = document.querySelector('.timer-numbers');
 			if (timerHours.textContent < 0 || timerMinuts.textContent < 0 || timerSeconds.textSeconds < 0) {
 				timerHours.textContent = '00' ;
 				timerMinuts.textContent = '00' ;
 				timerSeconds.textContent = '00' ;
+				timerContainer.style.color = 'red';
 				clearInterval(updateClock);
 			} 
 		}

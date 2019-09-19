@@ -150,7 +150,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			slider = document.querySelector('.portfolio-content');
 
 		let currentSlide = 0,
-			interval;
+				interval;
 
 		const prevSlide = (elem, index, strClass) => {
 			elem[index].classList.remove(strClass);
@@ -206,54 +206,31 @@ window.addEventListener('DOMContentLoaded', function () {
 			if (currentSlide < 0) {
 				currentSlide = slide.length - 1;
 			}
-
+			
 			nextSlide(slide, currentSlide, 'portfolio-item-active');
 			nextSlide(dot, currentSlide, 'dot-active');
 		});
 
 		slider.addEventListener('mouseover', (event) => {
 			if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
-				stopSlide();
+					stopSlide();
 			}
 		});
 		slider.addEventListener('mouseout', (event) => {
 			if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) {
 				startSlide();
-			}
+		}
 		});
 
 		startSlide(1500);
 
 	};
 
-	const changePhoto = () => {
-		const commandPhotos = document.querySelectorAll('.command__photo');
-		commandPhotos.forEach((item, index) => {
-			item.addEventListener('mouseenter', (event) => {
-				event.target.src = event.target.dataset.img;
-			});
-			item.addEventListener('mouseleave', (event) => {
-				event.target.src = `./images/command/command-${index + 1}.jpg`;
-			});
-		});
-	};
 
-	const inputValidation = () => {
-		const calcBlock = document.querySelector('.calc-block'),
-					calcBlockInput = calcBlock.querySelectorAll('input');
-		console.log(calcBlockInput);
-		calcBlockInput.forEach((item) => {
-			item.addEventListener('input', () => {
-				item.value = item.value.replace(/\e/g, '');
-			
-			});
-		});
 
-	}
 
-	inputValidation();
 	slider();
-	changePhoto();
+
 	tabs();
 	togglePopup();
 	toggleMenu();

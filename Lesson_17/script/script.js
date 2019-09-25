@@ -355,6 +355,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 				});
 			}
+			startRequest();
 		});
 
 

@@ -314,7 +314,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			});
 			inputText.forEach((validateInput) => {
 				validateInput.addEventListener('input', () => {
-					validateInput.value = validateInput.value.replace(/[^a-zA-Zа-яА-Я]/, '');
+					validateInput.value = validateInput.value.replace(/[^а-яА-Я]/, '');
 				});
 			});
 
@@ -356,8 +356,6 @@ window.addEventListener('DOMContentLoaded', function () {
 			});
 		});
 	};
-
-
 
 	sendForm();
 	calc(100);

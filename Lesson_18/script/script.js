@@ -353,13 +353,8 @@ window.addEventListener('DOMContentLoaded', function () {
 					// .then(()=> statusMesege.textContent = loadMesage)
 					.then(() => statusMesege.textContent = sucsessMesege)
 					.catch(() => statusMesege.textContent = errorMesage);
-
 			});
 		});
-
-
-
-
 	};
 
 

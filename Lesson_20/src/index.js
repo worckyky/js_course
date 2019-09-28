@@ -12,7 +12,7 @@ import sendForm from './modules/sendForm';
 
 
 //Таймер 
-countTimer('13 september 2019');
+countTimer('30 september 2019');
 // Меню
 toggleMenu();
 // Поппап 

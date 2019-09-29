@@ -5,7 +5,7 @@
 
 		popUpBtn.forEach((item) => {
 			item.addEventListener('click', () => {
-				if (window.innerWidth > 375) {
+				if (window.innerWidth > 576) {
 					popUp.classList.toggle('popup-active');
 				}
 			});

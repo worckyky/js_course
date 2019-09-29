@@ -8,9 +8,7 @@ const sendForm = () => {
 
 	allForms.forEach((form) => {
 		const statusMesege = document.createElement('div');
-		// statusMesege.textContent = 'Тут будет сообщение!';
 		statusMesege.style.cssText = `font-size: 2rem;`;
-		// form.appendChild(statusMesege);
 		const inputPhone = document.querySelectorAll('.form-phone');
 		const inputText = document.querySelectorAll('#name, #message');
 
@@ -49,6 +47,10 @@ const sendForm = () => {
 					}
 					console.log(response);
 					statusMesege.textContent = sucsessMesege;
+					let inputValue = form.querySelectorAll('input');
+					inputValue.forEach((item) => {
+						item.value = '';
+					}); 
 				})
 				.catch(() => {
 					statusMesege.textContent = errorMesage;

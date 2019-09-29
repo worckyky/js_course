@@ -7,6 +7,10 @@
 			item.addEventListener('click', () => {
 				if (window.innerWidth > 576) {
 					popUp.classList.toggle('popup-active');
+				} else {
+					popUp.style.cssText = 
+					`transition: 0s`;
+					popUp.classList.toggle('popup-active');
 				}
 			});
 		});

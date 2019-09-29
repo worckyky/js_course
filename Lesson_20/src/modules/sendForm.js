@@ -8,7 +8,9 @@ const sendForm = () => {
 
 	allForms.forEach((form) => {
 		const statusMesege = document.createElement('div');
-		statusMesege.style.cssText = `font-size: 2rem;`;
+		statusMesege.style.cssText = 
+		`font-size: 2rem;
+		color: #ffffff`;
 		const inputPhone = document.querySelectorAll('.form-phone');
 		const inputText = document.querySelectorAll('#name, #message');
 

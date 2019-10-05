@@ -11,9 +11,9 @@ const sendForm = () => {
 		statusMesege.style.cssText = 
 		`font-size: 2rem;
 		color: #ffffff`;
+		
 		const inputPhone = document.querySelectorAll('.form-phone');
 		const inputText = document.querySelectorAll('#name, #message');
-
 		inputPhone.forEach((validateInput) => {
 			validateInput.addEventListener('input', () => {
 				validateInput.value = validateInput.value.replace(/[^0-9\\+]/, '');
